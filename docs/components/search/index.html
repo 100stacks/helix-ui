@@ -74,6 +74,7 @@ also:
       </header>
 
       <div>
+        <!--
         <hx-search
           :disabled="isDisabled"
           :invalid="isInvalid"
@@ -82,6 +83,15 @@ also:
           @clear="onSearchUpdate"
           @input="onSearchUpdate"
         ></hx-search>
+        -->
+
+        <hx-search-control>
+          <input id="demoSearch" type="search" />
+          <hx-search></hx-search>
+          <label for="demoSearch">
+            Search for stuff...
+          </label>
+        </hx-search-control>
       </div>
 
       <footer>

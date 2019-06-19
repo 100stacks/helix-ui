@@ -1,5 +1,40 @@
 @import (reference) 'mixins';
 
+// ----- LAYOUT -----
+/*
+    1fr
+  +------------+
+  | label      | auto
+  +------------+
+  | control    | 2rem
+  +------------+
+*/
+
+
+hx-search-control {
+  @ctrl-columns: 1fr;
+  @ctrl-rows: auto 2rem;
+
+  -ms-grid-columns: @ctrl-columns;
+  -ms-grid-rows: @ctrl-rows;
+  display: -ms-grid;
+  display: grid;
+  grid-template-areas:
+    'label'
+    'control';
+  grid-template-columns: @ctrl-columns;
+  grid-template-rows: @ctrl-rows;
+
+   > label {
+  }
+
+   > input[type="search"] {
+  }
+}
+
+
+
+
 hx-search-assistance:extend(.hxComponent) {
   #Positionable.base();
 
