@@ -4,8 +4,33 @@
 
 
 
-// TODO: add CSS custom props for theming hooks
+:host {
+  #hxSearch {
+    -ms-grid-column-align: start;
+    -ms-grid-columns: auto 1fr auto;
+    -ms-grid-rows: auto auto auto;
+    display: -ms-grid;
 
+    display: -ms-grid;
+    display: grid;
+    grid-template-columns: 2rem 1fr;
+  }
+
+  #hxIcon {
+    //-ms-grid-column: 1;
+    //-ms-grid-row: 1;
+    background: none;
+    color: @gray-700;
+    //grid-column: 1;
+    //grid-row: 1;
+    line-height: 1;
+    margin: 0.5rem;
+  }
+}
+
+
+/*
+// TODO: add CSS custom props for theming hooks
 input::-ms-clear {
   display: none;
 }
@@ -169,3 +194,4 @@ input::-ms-clear {
     border-width: 1px;
   }
 }//[disabled]
+*/

@@ -86,15 +86,15 @@ also:
         -->
 
         <hx-search-control>
-          <hx-icon type="search"></hx-icon>
           <input id="demoSearch" type="search" />
+          <!-- add javascript to remove hidden attr based on input event from search field -->
+          <button type="button" class="hxClear" hidden aria-label="Clear search">
+            <hx-icon type="times"></hx-icon>
+          </button>
           <hx-search></hx-search>
           <label for="demoSearch">
             Search for stuff...
           </label>
-          <button type="button">
-            <hx-icon type="times"></hx-icon>
-          </button>
         </hx-search-control>
       </div>
 
@@ -113,6 +113,7 @@ also:
 
     <div class="example" id="vue-searchAssistanceDemo" v-cloak>
       <div>
+        <!--
         <hx-search
           :value="searchValue"
           @blur="onBlur"
@@ -121,6 +122,19 @@ also:
           @input="onUpdate"
           id="assisted-hx-search"
         ></hx-search>
+        -->
+
+        <hx-search-control>
+            <input id="demoSearch" type="search" />
+            <!-- add javascript to remove hidden attr based on input event from search field -->
+            <button type="button" class="hxClear" hidden aria-label="Clear search">
+              <hx-icon type="times"></hx-icon>
+            </button>
+            <hx-search></hx-search>
+            <label for="demoSearch">
+              Search for stuff...
+            </label>
+          </hx-search-control>
         <hx-search-assistance relative-to="assisted-hx-search" ref="search">
           {% raw %}
           <header>Search for "{{searchValue}}"</header>
