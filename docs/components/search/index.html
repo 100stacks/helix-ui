@@ -60,14 +60,17 @@ also:
 
             <hx-checkbox-control>
               <input
-                id="chkIsInvalid"
+                id="chkRequired"
                 type="checkbox"
-                v-model="isInvalid"
+                v-model="isRequired"
               />
-              <label for="chkIsInvalid">
+              <label for="chkRequired">
                 <hx-checkbox></hx-checkbox>
-                Invalid
+                Required
               </label>
+              <p>
+                (Invalid styling applied <i>after</i> user interaction.)
+              </p>
             </hx-checkbox-control>
           </fieldset>
         </form>

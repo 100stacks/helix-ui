@@ -5,9 +5,9 @@ if (document.getElementById('vue-searchDemo')) {
         el: '#vue-searchDemo',
         data: {
             isDisabled: false,
-            isInvalid: false,
-            searchValue: '',
+            isRequired: false,
             placeholder: '',
+            searchValue: '',
         },
         methods: {
             // fires on 'input' and 'clear' events
