@@ -1,0 +1,32 @@
+@import (reference) 'components/forms';
+
+.search-spec {
+    /* ----- Pristine --------------- */
+    hx-search-control > input[type="search"] ~ hx-search {
+      &.mock-focus {
+        .SearchControl(pristine-focus);
+      }
+    }
+
+    /* ----- Disabled --------------- */
+    hx-search-control > input[type="search"]:disabled ~ hx-search {
+      .SearchControl(disabled);
+
+      &.mock-focus {
+        .SearchControl(disabled-focus);
+      }
+    }
+
+
+    /* ----- Changed / Touched --------------- */
+
+
+    /* ----- Styled Invalid --------------- */
+    hx-search-control > input[type="search"] ~ hx-search {
+      &.hxInvalid {
+        &.mock-focus {
+          .SearchControl(invalid-focus);
+        }
+      }
+    }
+}

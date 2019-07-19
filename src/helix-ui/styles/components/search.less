@@ -28,7 +28,6 @@ hx-search-control {
 
   > input[type="search"] {
     -ms-grid-column: 2;
-    -ms-grid-column-span: 3;
     -ms-grid-row: 2;
     background: none;
     border: none;
@@ -81,9 +80,8 @@ hx-search-control {
   }
 
   hx-search {
-    -ms-grid-row: 2;
-    -ms-grid-column: 1;
     -ms-grid-column-span: 3;
+    -ms-grid-row: 2;
     background-color: @gray-0;
     border-radius: 2px;
     border: 1px solid @gray-500;
@@ -95,10 +93,8 @@ hx-search-control {
    > label {
     @justify: start;
     -ms-grid-column-align: @justify;
-    -ms-grid-column: 1;
-    -ms-grid-column-span: 3;
-    -ms-grid-row: 1;
     color: @gray-800;
+    display: inline-block;
     font-size: 0.875rem;
     grid-area: lbl;
     justify-self: @justify;
@@ -158,23 +154,31 @@ hx-search {
 }
 
 // ----- PRESTINE ----------
-
-// ----- INVALID ----------
-hx-search-control[hx-dirty] > input[type="search"]:enabled:invalid,
-hx-search-control.hxInvalid > input[type="search"]:enabled {
-  border: 2px solid #d32f2f;
+hx-search-control > input[type="search"] ~ hx-search {
+  .SearchControl(pristine);
 
   &:focus {
+    .SearchControl(pristine-focus);
+  }
+}
+
+// ----- INVALID ----------
+hx-search-control[hx-dirty] > input[type="search"]:enabled:invalid ~ hx-search,
+hx-search-control.hxInvalid > input[type="search"]:enabled ~ hx-search {
+  .SearchControl(invalid);
+  
+  &:focus {
+    .SearchControl(invalid-focus);
   }
 }
 
 // ----- DISABLED ----------
-hx-search-control > input[type="search"]:disabled {
+hx-search-control > input[type="search"]:disabled ~ hx-search {
+  .SearchControl(disabled);
 
-  ~ label {
-  }
 
   &:focus {
+    .SearchControl(disabled-focus);
   }
 }
 

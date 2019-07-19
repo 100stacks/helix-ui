@@ -5,6 +5,57 @@ crumbs:
     label: Search
 ---
 {% extends 'test.njk' %}
+{% set contentClasses = 'search-spec' %}
+
+
+{% macro searchInput(id='', isDirty=false, className='', isRequired=false, isDisabled=false, isFocused=false, isValid=true) %}
+  {% set isPristine = (className === '') and not isDirty %}
+
+  {% set idAttr -%}searchInput-
+    {{- 'd' if isDirty else 'p' -}}
+    {{- 'R' if isRequired else 'O' -}}
+    {{- 'D' if isDisabled else 'E' -}}
+    {{- 'V' if isValid else 'I' -}}
+    -
+    {{- 'f' if isFocused else 'b' -}}
+    {%- if id !== '' %}-{{id}}{% endif -%}
+  {%- endset %}
+
+  <hx-search-control
+    {% if className !== '' %}class="{{className}}" {% endif %}
+    {% if isDirty %}hx-dirty {% endif %}
+  >
+    <input
+      type="search"
+      id="{{idAttr | trim}}"
+    />
+    <button type="button" class="hxClear" hidden aria-label="Clear search">
+      <hx-icon type="times"></hx-icon>
+    </button>
+    <hx-search
+      {% if isFocused %}class="mock-focus" {% endif %}
+      {% if isDisabled %}disabled {% endif %}
+      {% if isRequired %}
+        required
+        {% if isValid %}value="value"{% endif %}
+      {% elif not isValid %}
+        data-mock-invalid
+      {% endif %}
+    ></hx-search>
+    <label for="{{idAttr | trim}}">
+      {% if isPristine %}
+        Pristine,
+      {% else %}
+        {% if className !== '' %}.{{ className }},{% endif %}
+        {% if isDirty %}Dirty,{% endif %}
+      {% endif %}
+      {{ 'Required' if isRequired else 'Optional' }},
+      {{ 'Disabled' if isDisabled else 'Enabled' }},
+      {{ 'Valid' if isValid else 'Invalid' }}
+      ({{ 'focus' if isFocused else 'blur' }})
+    </label>
+  </hx-search-control>
+{% endmacro %}
 
 {% block content %}
   <section>
@@ -100,4 +151,247 @@ crumbs:
       });
     })();
   </script>
+
+  <section>
+    <header>
+      <h2 id="test-pristine">Pristine</h2>
+      <code>&lt;hx-search-control&gt;</code>
+    </header>
+
+    <section>
+      <header>
+        <h3>Optional</h3>
+        <code>&lt;input type="search"&gt;</code>
+      </header>
+      <table>
+        <thead>
+          <tr>
+            <th>:valid</th>
+            <th>:invalid</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>
+              {{searchInput('pristine')}}
+              {{searchInput('pristine', isFocused=true)}}
+            </td>
+            <td>
+              {{searchInput('pristine', isValid=false)}}
+              {{searchInput('pristine', isValid=false, isFocused=true)}}
+            </td>
+          </tr>
+          <tr>
+            <td>
+              {{searchInput('pristine', isDisabled=true)}}
+              {{searchInput('pristine', isDisabled=true, isFocused=true)}}
+            </td>
+            <td>
+              {{searchInput('pristine', isValid=false, isDisabled=true)}}
+              {{searchInput('pristine', isValid=false, isDisabled=true, isFocused=true)}}
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </section>
+
+    <section>
+      <header>
+        <h3>Required</h3>
+        <code>&lt;input type="search" required&gt;</code>
+      </header>
+      <table>
+        <thead>
+          <tr>
+            <th>:valid</th>
+            <th>:invalid</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>
+              {{searchInput('pristine', isRequired=true)}}
+              {{searchInput('pristine', isRequired=true, isFocused=true)}}
+            </td>
+            <td>
+              {{searchInput('pristine', isRequired=true, isValid=false)}}
+              {{searchInput('pristine', isRequired=true, isValid=false, isFocused=true)}}
+            </td>
+          </tr>
+          <tr>
+            <td>
+              {{searchInput('pristine', isRequired=true, isDisabled=true)}}
+              {{searchInput('pristine', isRequired=true, isDisabled=true, isFocused=true)}}
+            </td>
+            <td>
+              {{searchInput('pristine', isRequired=true, isValid=false, isDisabled=true)}}
+              {{searchInput('pristine', isRequired=true, isValid=false, isDisabled=true, isFocused=true)}}
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </section>
+  </section>
+
+  <section>
+    <header>
+      <h2 id="test-dirty">Dirty</h2>
+      <code>&lt;hx-search-control hx-dirty&gt;</code>
+    </header>
+
+    <section>
+      <header>
+        <h3>Optional</h3>
+        <code>&lt;input type="search"&gt;</code>
+      </header>
+      <table>
+        <thead>
+          <tr>
+            <th>:valid</th>
+            <th>:invalid</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>
+              {{searchInput('dirty', isDirty=true )}}
+              {{searchInput('dirty', isDirty=true, isFocused=true)}}
+            </td>
+            <td>
+              {{searchInput('dirty', isDirty=true, isValid=false)}}
+              {{searchInput('dirty', isDirty=true, isValid=false, isFocused=true)}}
+            </td>
+          </tr>
+          <tr>
+            <td>
+              {{searchInput('dirty', isDirty=true, isDisabled=true)}}
+              {{searchInput('dirty', isDirty=true, isDisabled=true, isFocused=true)}}
+            </td>
+            <td>
+              {{searchInput('dirty', isDirty=true, isValid=false, isDisabled=true)}}
+              {{searchInput('dirty', isDirty=true, isValid=false, isDisabled=true, isFocused=true)}}
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </section>
+
+    <section>
+      <header>
+        <h3>Required</h3>
+        <code>&lt;input type="search" required&gt;</code>
+      </header>
+      <table>
+        <thead>
+          <tr>
+            <th>:valid</th>
+            <th>:invalid</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>
+              {{searchInput('dirty', isDirty=true, isRequired=true)}}
+              {{searchInput('dirty', isDirty=true, isRequired=true, isFocused=true)}}
+            </td>
+            <td>
+              {{searchInput('dirty', isDirty=true, isRequired=true, isValid=false)}}
+              {{searchInput('dirty', isDirty=true, isRequired=true, isValid=false, isFocused=true)}}
+            </td>
+          </tr>
+          <tr>
+            <td>
+              {{searchInput('dirty', isDirty=true, isRequired=true, isDisabled=true)}}
+              {{searchInput('dirty', isDirty=true, isRequired=true, isDisabled=true, isFocused=true)}}
+            </td>
+            <td>
+              {{searchInput('dirty', isDirty=true, isRequired=true, isValid=false, isDisabled=true)}}
+              {{searchInput('dirty', isDirty=true, isRequired=true, isValid=false, isDisabled=true, isFocused=true)}}
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </section>
+  </section>
+
+  <section>
+    <header>
+      <h2 id="test-visually-invalid">Visually Invalid</h2>
+      <code>&lt;hx-search-control class="hxInvalid"&gt;</code>
+    </header>
+
+    <section>
+      <header>
+        <h3>Optional</h3>
+        <code>&lt;input type="search"&gt;</code>
+      </header>
+      <table>
+        <thead>
+          <tr>
+            <th>:valid</th>
+            <th>:invalid</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>
+              {{searchInput('invalid', className="hxInvalid" )}}
+              {{searchInput('invalid', className="hxInvalid", isFocused=true)}}
+            </td>
+            <td>
+              {{searchInput('invalid', className="hxInvalid", isValid=false)}}
+              {{searchInput('invalid', className="hxInvalid", isValid=false, isFocused=true)}}
+            </td>
+          </tr>
+          <tr>
+            <td>
+              {{searchInput('invalid', className="hxInvalid", isDisabled=true)}}
+              {{searchInput('invalid', className="hxInvalid", isDisabled=true, isFocused=true)}}
+            </td>
+            <td>
+              {{searchInput('invalid', className="hxInvalid", isValid=false, isDisabled=true)}}
+              {{searchInput('invalid', className="hxInvalid", isValid=false, isDisabled=true, isFocused=true)}}
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </section>
+
+    <section>
+      <header>
+        <h3>Required</h3>
+        <code>&lt;input type="search" required&gt;</code>
+      </header>
+      <table>
+        <thead>
+          <tr>
+            <th>:valid</th>
+            <th>:invalid</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>
+              {{searchInput('invalid', className="hxInvalid", isRequired=true)}}
+              {{searchInput('invalid', className="hxInvalid", isRequired=true, isFocused=true)}}
+            </td>
+            <td>
+              {{searchInput('invalid', className="hxInvalid", isRequired=true, isValid=false)}}
+              {{searchInput('invalid', className="hxInvalid", isRequired=true, isValid=false, isFocused=true)}}
+            </td>
+          </tr>
+          <tr>
+            <td>
+              {{searchInput('invalid', className="hxInvalid", isRequired=true, isDisabled=true)}}
+              {{searchInput('invalid', className="hxInvalid", isRequired=true, isDisabled=true, isFocused=true)}}
+            </td>
+            <td>
+              {{searchInput('invalid', className="hxInvalid", isRequired=true, isValid=false, isDisabled=true)}}
+              {{searchInput('invalid', className="hxInvalid", isRequired=true, isValid=false, isDisabled=true, isFocused=true)}}
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </section>
+  </section>  
 {% endblock %}
