@@ -166,6 +166,7 @@ hx-search-control > input[type="search"] ~ hx-search {
 hx-search-control[hx-dirty] > input[type="search"]:enabled:invalid ~ hx-search,
 hx-search-control.hxInvalid > input[type="search"]:enabled ~ hx-search {
   .SearchControl(invalid);
+  border: 2px solid @red-900;
   
   &:focus {
     .SearchControl(invalid-focus);
@@ -175,6 +176,10 @@ hx-search-control.hxInvalid > input[type="search"]:enabled ~ hx-search {
 // ----- DISABLED ----------
 hx-search-control > input[type="search"]:disabled ~ hx-search {
   .SearchControl(disabled);
+  #Mix.disabledPlaceholder();
+  background-color: @gray-50;
+  border: 1px solid @gray-500;
+  color: @gray-400;
 
 
   &:focus {

@@ -60,33 +60,30 @@ also:
 
             <hx-checkbox-control>
               <input
-                id="chkIsInvalid"
+                id="chkRequired"
                 type="checkbox"
-                v-model="isInvalid"
+                v-model="isRequired"
               />
-              <label for="chkIsInvalid">
+              <label for="chkRequired">
                 <hx-checkbox></hx-checkbox>
-                Invalid
+                Required
               </label>
+              <p>
+                (Invalid styling applied <i>after</i> user interaction.)
+              </p>
             </hx-checkbox-control>
           </fieldset>
         </form>
       </header>
 
       <div>
-        <!--
-        <hx-search
-          :disabled="isDisabled"
-          :invalid="isInvalid"
-          :placeholder="placeholder"
-          :value="searchValue"
-          @clear="onSearchUpdate"
-          @input="onSearchUpdate"
-        ></hx-search>
-        -->
-
         <hx-search-control>
-          <input id="demoSearch" type="search" />
+          <input id="demoSearch" type="search" 
+            :placeholder="placeholder"
+            :value="searchValue"
+            @clear="onSearchUpdate"
+            @input="onSearchUpdate"
+          />
           <!-- add javascript to remove hidden attr based on input event from search field -->
           <button type="button" class="hxClear" hidden aria-label="Clear search">
             <hx-icon type="times"></hx-icon>

@@ -19,6 +19,12 @@ if (document.getElementById('vue-searchDemo')) {
             },
         },
         computed: {
+            attrDisabled: function () {
+                return (this.isDisabled ? 'disabled' : '');
+            },
+            attrRequired: function () {
+                return (this.isRequired ? 'required' : '');
+            },
             hasPlaceholder: function () {
                 return (this.placeholder !== '');
             },
@@ -27,13 +33,23 @@ if (document.getElementById('vue-searchDemo')) {
             },
             snippet: function () {
                 return Util.snippet(`
-                    <hx-search
-                        ${this.isDisabled ? 'disabled' : ''}
-                        ${this.isInvalid ? 'invalid' : ''}
-                        ${this.hasPlaceholder ? `placeholder="${this.placeholder}"` : ''}
-                        ${this.hasValue ? `value="${this.searchValue}"` : ''}>
-                        <!-- inner content will be removed -->
-                    </hx-search>
+                  <hx-search-control>
+                    <input 
+                      id="demoSearch" 
+                      type="search" 
+                      ${this.attrDisabled}
+                      ${this.attrRequired}
+                      ${this.hasPlaceholder ? `placeholder="${this.placeholder}"` : ''}
+                      ${this.hasValue ? `value="${this.searchValue}"` : ''}
+                    />
+                    <button type="button" class="hxClear" hidden aria-label="Clear search">
+                      <hx-icon type="times"></hx-icon>
+                    </button>
+                    <hx-search</hx-search>
+                    <label for="demoSearch">
+                      Search for stuff...
+                    </label>
+                  </hx-search-control>
                 `);
             },
         },
