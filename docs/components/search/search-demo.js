@@ -4,19 +4,11 @@ if (document.getElementById('vue-searchDemo')) {
     new Vue({
         el: '#vue-searchDemo',
         data: {
+            hasAsterisk: false,
+            hasOptional: false,
             isDisabled: false,
             isRequired: false,
-            placeholder: '',
-            searchValue: '',
-        },
-        methods: {
-            // fires on 'input' and 'clear' events
-            onSearchUpdate: function (evt) {
-                this.searchValue = evt.target.value;
-            },
-            onChkChange: function (evt, datum) {
-                this[datum] = evt.currentTarget.checked;
-            },
+            label: 'Username',
         },
         computed: {
             attrDisabled: function () {
@@ -25,11 +17,20 @@ if (document.getElementById('vue-searchDemo')) {
             attrRequired: function () {
                 return (this.isRequired ? 'required' : '');
             },
-            hasPlaceholder: function () {
-                return (this.placeholder !== '');
-            },
-            hasValue: function () {
-                return (this.searchValue && this.searchValue !== '');
+            lblClasses: function () {
+                let classes = [];
+
+                if (this.hasAsterisk) {
+                    classes.push('hxRequired');
+                }
+
+                if (this.hasOptional) {
+                    classes.push('hxOptional');
+                }
+
+                let classNames = classes.join(' ');
+
+                return (classNames === '' ? '' : `class="${classNames}"`);
             },
             snippet: function () {
                 return Util.snippet(`

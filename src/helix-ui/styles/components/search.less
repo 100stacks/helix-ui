@@ -1,4 +1,5 @@
 @import (reference) 'mixins';
+@import (reference) "components/forms";
 
 // ----- LAYOUT -----
 /*
@@ -156,10 +157,10 @@ hx-search {
 // ----- PRESTINE ----------
 hx-search-control > input[type="search"] ~ hx-search {
   .SearchControl(pristine);
+}
 
-  &:focus {
-    .SearchControl(pristine-focus);
-  }
+hx-search-control > input[type="search"]:focus ~ hx-search {
+  .SearchControl(pristine-focus);
 }
 
 // ----- INVALID ----------

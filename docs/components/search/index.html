@@ -24,35 +24,51 @@ also:
         <form class="beta-hxForm">
           <hx-text-control>
             <input
-              id="txtPlaceholder"
+              id="txtLabel"
               type="text"
-              v-model="placeholder"
+              v-model="label"
             />
-            <label for="txtPlaceholder">
-              Placeholder
-            </label>
-          </hx-text-control>
-
-          <hx-text-control>
-            <input
-              id="txtValue"
-              type="text"
-              v-model="searchValue"
-            />
-            <label for="txtValue">
-              Value
+            <label for="txtLabel">
+              Label Text
             </label>
           </hx-text-control>
 
           <fieldset>
-            <legend class="beta-hxFieldName">Options</legend>
+            <legend class="beta-hxFieldName">Label Annotation</legend>
             <hx-checkbox-control>
               <input
-                id="chkIsDisabled"
+                id="chkHasAsterisk"
+                type="checkbox"
+                v-model="hasAsterisk"
+              />
+              <label for="chkHasAsterisk">
+                <hx-checkbox></hx-checkbox>
+                Required
+              </label>
+            </hx-checkbox-control>
+
+            <hx-checkbox-control>
+              <input
+                id="chkHasOptional"
+                type="checkbox"
+                v-model="hasOptional"
+              />
+              <label for="chkHasOptional">
+                <hx-checkbox></hx-checkbox>
+                Optional
+              </label>
+            </hx-checkbox-control>
+          </fieldset>
+
+          <fieldset>
+            <legend class="beta-hxFieldName">Control Options</legend>
+            <hx-checkbox-control>
+              <input
+                id="chkDisabled"
                 type="checkbox"
                 v-model="isDisabled"
               />
-              <label for="chkIsDisabled">
+              <label for="chkDisabled">
                 <hx-checkbox></hx-checkbox>
                 Disabled
               </label>
@@ -78,8 +94,11 @@ also:
 
       <div>
         <hx-search-control>
-          <input id="demoSearch" type="search" 
-            :placeholder="placeholder"
+          <input 
+            id="demoSearch" 
+            type="search" 
+            :disabled="isDisabled"
+            :required="isRequired"
             :value="searchValue"
             @clear="onSearchUpdate"
             @input="onSearchUpdate"
@@ -89,8 +108,11 @@ also:
             <hx-icon type="times"></hx-icon>
           </button>
           <hx-search></hx-search>
-          <label for="demoSearch">
-            Search for stuff...
+          <label
+            for="demoSearch"
+            :class="{ hxOptional: hasOptional, hxRequired: hasAsterisk }"
+          >
+            {% raw %}{{label}}{% endraw %}
           </label>
         </hx-search-control>
       </div>
