@@ -40,15 +40,17 @@ if (document.getElementById('vue-searchDemo')) {
                       type="search" 
                       ${this.attrDisabled}
                       ${this.attrRequired}
-                      ${this.hasPlaceholder ? `placeholder="${this.placeholder}"` : ''}
                       ${this.hasValue ? `value="${this.searchValue}"` : ''}
                     />
                     <button type="button" class="hxClear" hidden aria-label="Clear search">
                       <hx-icon type="times"></hx-icon>
                     </button>
                     <hx-search</hx-search>
-                    <label for="demoSearch">
-                      Search for stuff...
+                    <label
+                      for="demoSearch"
+                      ${this.lblClasses}
+                    >
+                      ${this.label}
                     </label>
                   </hx-search-control>
                 `);

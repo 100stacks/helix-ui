@@ -166,12 +166,12 @@ hx-search-control > input[type="search"]:focus ~ hx-search {
 // ----- INVALID ----------
 hx-search-control[hx-dirty] > input[type="search"]:enabled:invalid ~ hx-search,
 hx-search-control.hxInvalid > input[type="search"]:enabled ~ hx-search {
-  .SearchControl(invalid);
-  border: 2px solid @red-900;
-  
-  &:focus {
-    .SearchControl(invalid-focus);
-  }
+  .SearchControl(invalid);  
+}
+
+hx-search-control[hx-dirty] > input[type="search"]:enabled:invalid:focus ~ hx-search,
+hx-search-control.hxInvalid > input[type="search"]:enabled:focus ~ hx-search {
+  .SearchControl(invalid-focus);
 }
 
 // ----- DISABLED ----------
