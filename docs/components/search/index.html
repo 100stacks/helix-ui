@@ -99,9 +99,13 @@ also:
             type="search" 
             :disabled="isDisabled"
             :required="isRequired"
+            value="hello"
           />
-          <!-- add javascript to remove hidden attr based on input event from search field -->
-          <button type="button" class="hxClear" hidden aria-label="Clear search">
+          <button 
+            aria-label="Clear search" 
+            hidden 
+            type="reset" 
+          >
             <hx-icon type="times"></hx-icon>
           </button>
           <hx-search></hx-search>
@@ -129,29 +133,28 @@ also:
 
     <div class="example" id="vue-searchAssistanceDemo" v-cloak>
       <div>
-        <!--
-        <hx-search
-          :value="searchValue"
-          @blur="onBlur"
-          @clear="onUpdate"
-          @focus="onFocus"
-          @input="onUpdate"
-          id="assisted-hx-search"
-        ></hx-search>
-        -->
-
-        <hx-search-control>
-            <input id="demoSearch" type="search" />
-            <!-- add javascript to remove hidden attr based on input event from search field -->
-            <button type="button" class="hxClear" hidden aria-label="Clear search">
-              <hx-icon type="times"></hx-icon>
-            </button>
-            <hx-search></hx-search>
-            <label for="demoSearch">
-              Search for stuff...
-            </label>
-          </hx-search-control>
-        <hx-search-assistance relative-to="assisted-hx-search" ref="search">
+        <hx-search-control id="assisted-hx-search-control">
+          <input 
+            id="assisted-hx-search" 
+            type="search" 
+            @blur="onBlur"
+            @focus="onFocus"
+            @input="onUpdate"
+          />
+          <button 
+            aria-label="Clear search" 
+            hidden 
+            type="reset" 
+            @click="onReset"
+          >              
+            <hx-icon type="times"></hx-icon>
+          </button>
+          <hx-search></hx-search>
+          <label for="assisted-hx-search">
+            Search for stuff...
+          </label>
+        </hx-search-control>
+        <hx-search-assistance relative-to="assisted-hx-search-control" ref="search">
           {% raw %}
           <header>Search for "{{searchValue}}"</header>
           <section v-if="hasValue">

@@ -76,6 +76,9 @@ if (document.getElementById('vue-searchAssistanceDemo')) {
             onBlur: function () {
                 this.$refs.search.open = false;
             },
+            onReset: function () {
+                this.searchValue = ''; 
+            },
         },
         computed: {
             hasValue: function () {
