@@ -1,0 +1,28 @@
+@import "../_base";
+
+#hxCheckbox {
+  align-items: center;
+  display: grid;
+  font-size: 10px;
+  grid-template-areas: 'icon';
+  height: 100%;
+  justify-content: center;
+  width: 100%;
+}
+
+/* icons */
+#hxMinus,
+#hxTick {
+  grid-area: icon;
+  height: 1em;
+  line-height: 1;
+  width: 1em;
+}
+
+#hxMinus {
+  display: var(--hxMinus-display, none);
+}
+
+#hxTick {
+  display: var(--hxTick-display, none);
+}

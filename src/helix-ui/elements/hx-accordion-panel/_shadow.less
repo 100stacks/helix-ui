@@ -1,0 +1,43 @@
+@import "../_base";
+
+#hxToggle {
+  background-color: transparent;
+  border: 0;
+  cursor: pointer;
+  padding: 0;
+  text-align: left;
+  width: 100%;
+
+  &[aria-expanded="true"] {
+    .header__icon {
+      transform: scaleY(-1);
+    }
+  }
+
+  &[disabled] {
+    cursor: not-allowed;
+  }
+}
+
+.header {
+  align-items: center;
+  display: flex;
+
+  &__content {
+    flex-shrink: 0;
+    flex-grow: 1;
+  }
+
+  &__icon {
+    flex-shrink: 0;
+    margin-left: 0.5rem;
+  }
+}
+
+#hxBody {
+  display: none;
+
+  &[aria-expanded="true"] {
+    display: block;
+  }
+}
